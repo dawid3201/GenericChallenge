@@ -1,23 +1,35 @@
 package dev.daw;
 
+interface Mappable{
+    void render();
+
+    //takes a string and split it into DOUBLE array where we will have latidute and logitude values in them
+    static double[] stringToLatLon(String a) {
+
+        var splits = a.split(",");
+        double lat = Double.parseDouble(splits[0]);
+        double lng = Double.parseDouble(splits[1]);
+        return new double[]{lat, lng};
+    }
+};
+
 public class Main {
 
     public static void main(String[] args) {
+        var nationalUsParks = new Park[]{
+                new Park("Yellow Stone", "44.4882, -110.5916"),
+                new Park("Grand Canyon" , "36.1085, -112.0965"),
+                new Park("Yosemite", "37.8855, -119.5360")
+        };
 
+        Layer<Park> parkLayer = new Layer<>(nationalUsParks);
+        parkLayer.renderLayer();
+
+
+        var majorUSRivers = new River[]{
+                new River("Mississippi", "47.2160, -95.2348", "29.1566, -89.2495", "35.1556, -90.0659")
+        };
+        Layer<River> riverLayer = new Layer<>(majorUSRivers);
     }
 }
 
-
-//Mappable interface with one abstract method "render"
-
-//2 classes Point and Line that implements this interface
-
-//2 specific classes that extend each of these, for mappable item of interest
-
-//example national park can be points and rivers will be lines
-
-//Park class that extends Point and River class that extends river so, line will only accept River type and locations will only accept Point type
-
-//Constructor or methods to add to classes, attributes: Name and Googled Location
-
-//generic class Layer <T>, only allow mappable elements as that type 1) Single Private field 2) List of elements to be mapped
